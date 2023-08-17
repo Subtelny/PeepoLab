@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory
 import pl.peepolab.slack.command.SlackCommandHandler
 
 @Factory
-class SlackApiFactory {
+class SlackFactory {
 
-    private val log = LoggerFactory.getLogger(SlackApiFactory::class.java)
+    private val log = LoggerFactory.getLogger(SlackFactory::class.java)
 
     @Singleton
     fun createAppConfig(): AppConfig =

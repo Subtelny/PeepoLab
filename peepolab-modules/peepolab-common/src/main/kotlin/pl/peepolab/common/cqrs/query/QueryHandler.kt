@@ -1,4 +1,4 @@
-package pl.peepolab.core.infrastructure.query
+package pl.peepolab.common.cqrs.query
 
 interface QueryHandler<QUERY : Query<RESULT>, RESULT> {
 

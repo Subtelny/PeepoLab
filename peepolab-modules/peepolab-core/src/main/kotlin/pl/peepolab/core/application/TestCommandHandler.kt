@@ -2,8 +2,8 @@ package pl.peepolab.core.application
 
 import jakarta.inject.Singleton
 import org.slf4j.LoggerFactory
-import pl.peepolab.core.infrastructure.command.Command
-import pl.peepolab.core.infrastructure.command.CommandHandler
+import pl.peepolab.common.cqrs.command.Command
+import pl.peepolab.common.cqrs.command.CommandHandler
 
 @Singleton
 class TestCommandHandler : CommandHandler<TestCommand, TestCommandResult> {

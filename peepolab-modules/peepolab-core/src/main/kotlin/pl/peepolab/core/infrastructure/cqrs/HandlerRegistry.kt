@@ -1,13 +1,13 @@
-package pl.peepolab.core.infrastructure
+package pl.peepolab.core.infrastructure.cqrs
 
 import io.micronaut.context.ApplicationContext
 import jakarta.inject.Singleton
-import pl.peepolab.core.infrastructure.command.Command
-import pl.peepolab.core.infrastructure.command.CommandHandler
-import pl.peepolab.core.infrastructure.command.CommandProvider
-import pl.peepolab.core.infrastructure.query.Query
-import pl.peepolab.core.infrastructure.query.QueryHandler
-import pl.peepolab.core.infrastructure.query.QueryProvider
+import pl.peepolab.common.cqrs.command.Command
+import pl.peepolab.common.cqrs.command.CommandHandler
+import pl.peepolab.core.infrastructure.cqrs.command.CommandProvider
+import pl.peepolab.common.cqrs.query.Query
+import pl.peepolab.common.cqrs.query.QueryHandler
+import pl.peepolab.core.infrastructure.cqrs.query.QueryProvider
 import pl.peepolab.utilities.resoleType
 
 @Singleton
@@ -43,11 +43,13 @@ class HandlerRegistry(appContext: ApplicationContext) {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <RESULT, COMMAND : Command<RESULT>> getCommandHandler(commandType: Class<COMMAND>): CommandHandler<COMMAND, RESULT> {
         return commandProviders[commandType]?.handler as? CommandHandler<COMMAND, RESULT>
             ?: throw IllegalArgumentException("Handler not found for command type: ${commandType.name}")
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <RESULT, QUERY : Query<RESULT>> getQueryHandler(queryType: Class<QUERY>): QueryHandler<QUERY, RESULT> {
         return queryProviders[queryType]?.handler as? QueryHandler<QUERY, RESULT>
             ?: throw IllegalArgumentException("Handler not found for query type: ${queryType.name}")

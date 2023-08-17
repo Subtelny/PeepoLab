@@ -1,4 +1,4 @@
-package pl.peepolab.core.infrastructure
+package pl.peepolab.core.infrastructure.cqrs
 
 import io.micronaut.context.ApplicationContext
 import java.lang.reflect.Type
@@ -8,6 +8,7 @@ abstract class Provider<HANDLER>(
     private val type: Type,
 ) {
 
+    @Suppress("UNCHECKED_CAST")
     val handler: HANDLER by lazy { applicationContext.getBean(type as Class<HANDLER>) }
 
 }

@@ -1,4 +1,4 @@
-package pl.peepolab.core.infrastructure.command
+package pl.peepolab.common.cqrs.command
 
 interface CommandHandler<COMMAND : Command<RESULT>, RESULT> {
 
