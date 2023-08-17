@@ -19,5 +19,3 @@ include("utilities")
 file("$rootDir/peepolab-modules")
     .listFiles { it -> it.isDirectory && it.name.startsWith("peepolab-")}
     ?.forEach { include(":peepolab-modules:${it.name}") }
-include("peepolab-modules:peepolab-gitlab")
-findProject(":peepolab-modules:peepolab-gitlab")?.name = "peepolab-gitlab"

@@ -1,4 +1,3 @@
 package pl.peepolab.core.infrastructure.command
 
-interface Command {
-}
+interface Command<out RESULT>

@@ -11,19 +11,31 @@ private const val COMMAND_NAME = "/plab"
 class PeepoLabCommandHandler : SlackCommandHandler {
     override fun getCommand(): String = COMMAND_NAME
 
-    override fun apply(req: SlashCommandRequest, context: SlashCommandContext): Response {
-        val botUserId = req.context.botUserId
+    private var lastMessage: String? = null
 
+    private var token: String? = null
+
+    override fun apply(req: SlashCommandRequest, context: SlashCommandContext): Response {
         val conversationsOpen = context.client().conversationsOpen {
             it.users(listOf(req.payload.userId))
         }
 
-        context.client().chatPostMessage {
-            it.channel(conversationsOpen.channel.id)
-                .text("Przetwarzam...")
-
+        if (lastMessage == null) {
+            val result = context.client().chatPostMessage {
+                it.channel(conversationsOpen.channel.id)
+                    .text("Przetwarzam...")
+            }
+            lastMessage = result.ts
+            token = req.payload.token
+        } else {
+            context.client().chatUpdate {
+                it.channel(conversationsOpen.channel.id)
+                    .ts(lastMessage)
+                    .text("Zedytowalem! :)")
+            }
+            lastMessage = null
         }
-        val usersInfo = context.client().usersInfo { it.user(context.requestUserId) }
-        return context.ack("Przetwarzam... Rezultat znajdziesz pod <@$botUserId>")
+
+        return Response.ok()
     }
 }
