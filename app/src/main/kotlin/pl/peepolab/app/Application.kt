@@ -1,9 +1,12 @@
 package pl.peepolab.app
 
 import io.micronaut.runtime.Micronaut
+import org.gitlab4j.api.GitLabApi
 
 fun main(args: Array<String>) {
     Micronaut.run(*args)
+//    val api = GitLabApi("https://gitlab.com", "glpat-mYhoVEN3sygzxrKk4Nrq")
+
 }
 
 //fun main() {

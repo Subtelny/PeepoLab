@@ -6,7 +6,13 @@ plugins {
     id("io.micronaut.application")
 }
 
-apply(from = "$rootDir/dependencies.gradle")
+apply(from = "${rootDir}/dependencies.gradle")
+
+dependencies {
+    implementation(project(":peepolab-modules:peepolab-core"))
+    implementation(project(":peepolab-modules:peepolab-slack"))
+    implementation(project(":peepolab-modules:peepolab-gitlab"))
+}
 
 application {
     mainClass = "pl.peepolab.app.ApplicationKt"
