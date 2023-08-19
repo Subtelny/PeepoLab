@@ -1,4 +1,4 @@
-package pl.peepolab.utilities
+package pl.peepolab.utilities.datatype
 
 import java.io.Serializable
 

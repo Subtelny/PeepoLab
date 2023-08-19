@@ -2,7 +2,7 @@ package pl.peepolab.core.domain.mergerequest
 
 import pl.peepolab.core.domain.Entity
 import pl.peepolab.core.domain.MergeRequestId
-import pl.peepolab.core.domain.UserId
+import pl.peepolab.core.domain.user.UserId
 import pl.peepolab.core.domain.mergerequest.event.ReviewerChangedEvent
 
 class MergeRequest(

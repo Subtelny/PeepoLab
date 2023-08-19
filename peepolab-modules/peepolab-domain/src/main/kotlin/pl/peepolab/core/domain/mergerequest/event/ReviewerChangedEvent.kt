@@ -1,7 +1,7 @@
 package pl.peepolab.core.domain.mergerequest.event
 
 import pl.peepolab.core.domain.MergeRequestId
-import pl.peepolab.core.domain.UserId
+import pl.peepolab.core.domain.user.UserId
 import pl.peepolab.core.domain.event.DomainEvent
 import java.time.LocalDateTime
 

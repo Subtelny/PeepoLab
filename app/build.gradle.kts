@@ -10,6 +10,7 @@ apply(from = "${rootDir}/dependencies.gradle")
 
 dependencies {
     implementation(project(":peepolab-modules:peepolab-core"))
+    implementation(project(":peepolab-modules:peepolab-domain"))
     implementation(project(":peepolab-modules:peepolab-common"))
     implementation(project(":peepolab-modules:peepolab-slack"))
     implementation(project(":peepolab-modules:peepolab-gitlab"))

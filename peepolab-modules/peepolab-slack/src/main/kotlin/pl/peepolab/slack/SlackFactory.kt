@@ -1,5 +1,6 @@
 package pl.peepolab.slack
 
+import com.slack.api.app_backend.events.EventHandler
 import com.slack.api.bolt.App
 import com.slack.api.bolt.AppConfig
 import com.slack.api.bolt.socket_mode.SocketModeApp
@@ -26,6 +27,10 @@ class SlackFactory {
             .forEach {
                 log.info("Registering Slack command handler: {}", it.getCommand())
                 app.command(it.getCommand(), it)
+            }
+        applicationContext.getBeansOfType(EventHandler::class.java)
+            .forEach {
+                app.event(it)
             }
         return SocketModeApp(app)
     }
