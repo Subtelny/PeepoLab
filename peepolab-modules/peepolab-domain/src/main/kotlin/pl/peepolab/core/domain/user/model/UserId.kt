@@ -1,4 +1,4 @@
-package pl.peepolab.core.domain.user
+package pl.peepolab.core.domain.user.model
 
 import pl.peepolab.utilities.datatype.Identity
 

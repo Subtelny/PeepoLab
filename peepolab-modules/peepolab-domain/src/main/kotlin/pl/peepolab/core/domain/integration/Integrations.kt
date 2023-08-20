@@ -1,18 +1,15 @@
 package pl.peepolab.core.domain.integration
 
-import pl.peepolab.utilities.datatype.Email
-import pl.peepolab.utilities.datatype.Identity
+import pl.peepolab.core.domain.integration.exception.IntegrationException
+import pl.peepolab.core.domain.integration.model.Integration
+import pl.peepolab.core.domain.integration.model.IntegrationType
 
 interface Integrations {
 
-    fun findUserIntegrations(request: UserIntegrationRequest): List<Integration>
-    fun getAll(): List<Integration>
-    fun getIntegration(integrationType: IntegrationType): Integration
+    fun findIntegration(integrationType: IntegrationType): Integration?
+
+    fun getIntegration(integrationType: IntegrationType): Integration =
+        findIntegration(integrationType) ?: throw IntegrationException.NotFound(integrationType)
 
 }
 
-data class UserIntegrationRequest(
-    val userId: Identity<Long>,
-    val email: Email?,
-    val userName: String?,
-)

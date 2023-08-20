@@ -1,9 +1,9 @@
 package pl.peepolab.core.domain.integration
 
-import pl.peepolab.core.domain.user.CouldNotAssociateIntegrationWithUser
-import pl.peepolab.core.domain.user.UserAlreadyHasIntegration
-import pl.peepolab.core.domain.user.UserId
+import pl.peepolab.core.domain.integration.model.IntegrationType
+import pl.peepolab.core.domain.user.model.UserId
 import pl.peepolab.core.domain.user.Users
+import pl.peepolab.core.domain.user.exception.UserException
 
 class IntegrationService(
     private val integrations: Integrations,
@@ -12,18 +12,14 @@ class IntegrationService(
 
     fun integrateUser(userId: UserId, integrationType: IntegrationType) {
         val user = users.getUser(userId)
-        user.userIntegrations.find { it.integrationType == integrationType }
-            ?: throw UserAlreadyHasIntegration(userId, integrationType)
+        user.integrationUsers.find { it.integrationType == integrationType }
+            ?: throw UserException.AlreadyIntegrated(userId, integrationType)
 
         val integrationUserId = integrations.getIntegration(integrationType)
-            .associateByUser(user) ?: throw CouldNotAssociateIntegrationWithUser(userId, integrationType)
+            .associateByUser(user) ?: throw UserException.UserIntegrationFailed(userId, integrationType)
 
-        user.addUserIntegration(integrationUserId)
+        user.addIntegrationUser(integrationUserId)
         users.saveUser(user)
-    }
-
-    private fun getAllIntegrations(): List<Integration> {
-        return integrations.getAll()
     }
 
 }

@@ -1,12 +1,14 @@
 package pl.peepolab.core.domain.user
 
+import pl.peepolab.core.domain.user.exception.UserException
+import pl.peepolab.core.domain.user.model.User
+import pl.peepolab.core.domain.user.model.UserId
+
 interface Users {
 
-    fun getUser(userId: UserId): User {
-        return findUser(userId) ?: throw UserNotFoundException(userId)
-    }
-
     fun findUser(userId: UserId): User?
+
+    fun getUser(userId: UserId): User = findUser(userId) ?: throw UserException.NotFound(userId)
     fun saveUser(user: User)
 
 }

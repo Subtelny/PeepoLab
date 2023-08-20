@@ -1,4 +1,4 @@
-package pl.peepolab.core.domain.integration
+package pl.peepolab.core.domain.integration.model
 
 import pl.peepolab.utilities.datatype.Identity
 
