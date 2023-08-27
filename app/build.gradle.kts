@@ -6,6 +6,7 @@ plugins {
     id("io.micronaut.application")
     id("io.micronaut.test-resources")
     id("io.micronaut.aot")
+    id("nu.studer.jooq")
 }
 
 apply(from = "${rootDir}/dependencies.gradle")
@@ -16,6 +17,7 @@ dependencies {
     implementation(project(":peepolab-modules:peepolab-module-api"))
     implementation(project(":peepolab-integrations:peepolab-integration-slack"))
     implementation(project(":peepolab-integrations:peepolab-integration-gitlab"))
+    jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
 }
 
 application {
@@ -42,7 +44,6 @@ tasks {
         }
     }
 }
-
 
 graalvmNative.toolchainDetection.set(false)
 micronaut {

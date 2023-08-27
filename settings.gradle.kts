@@ -13,8 +13,10 @@ pluginManagement {
         id("io.micronaut.test-resources") version micronautVersion apply false
         id("io.micronaut.aot") version micronautVersion apply false
         id("io.micronaut.library") version micronautVersion apply false
+        id("nu.studer.jooq") version "8.2.1" apply false
     }
 }
+
 
 rootProject.name = "peepoLab"
 include("app")

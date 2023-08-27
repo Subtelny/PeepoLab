@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  db:
+    image: "postgres:15.4-bookworm"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: peepolab
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
+    driver: local

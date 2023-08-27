@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  app:
+    image: "peepolab-app:latest"
+    ports:
+      - "3000:3000"
+    environment:
+      SLACK_APP_TOKEN: xapp-1-A05MNPEQEVA-5777303277712-7a6cb675afb862d0dc1a46d2e35e86a41d2e83d4232fff4550ca191c55ec0127
+      SLACK_BOT_TOKEN: xoxb-5409330137958-5727714989366-UbwXy8DgD2m6mpJBjhUauqu0
+      SLACK_SIGNING_SECRET: 876ba81dd60b746c29166c792dfb00e
+      DATASOURCES_DEFAULT_URL: jdbc:postgresql://db:5432/peepolab
+      DATASOURCES_DEFAULT_USERNAME: postgres
+      DATASOURCES_DEFAULT_PASSWORD: postgres
+    depends_on:
+      - db
+
+  db:
+    image: "postgres:15.4-bookworm"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: peepolab
+    ports:
+      - "5432:5432"

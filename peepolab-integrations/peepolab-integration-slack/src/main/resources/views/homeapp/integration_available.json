@@ -1,0 +1,70 @@
+{
+  "type": "home",
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Bez Twoich integracji, jeszcze nie mam co tu pokazać :("
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "image",
+          "image_url": "https://api.slack.com/img/blocks/bkb_template_images/placeholder.png",
+          "alt_text": "placeholder"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Dostępne integracje*"
+      }
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "GitLab"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Funkcjonalności:*\n• Lista Twoich MR (w tym - stan pipeline'ów, jira issue)\n• Lista MR oczekujących na CR od Ciebie\n• Powiadomienie gdy ktoś poprosi Cię o CR\n• Powiadomienie gdy wystąpi błąd na pipeline\n• Wyciszanie powiadomień (kontekstowe/kompletne)\n• Codzienna przypominajka o zalegających MR"
+      },
+      "accessory": {
+        "type": "image",
+        "image_url": "https://about.gitlab.com/images/press/logo/png/gitlab-logo-500.png",
+        "alt_text": "GitLab"
+      }
+    },
+    {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Integruj się z GitLab"
+          },
+          "style": "primary",
+          "value": "click_me_123",
+          "url": "https://google.com",
+          "action_id": "actionId-0"
+        }
+      ]
+    },
+    {
+      "type": "divider"
+    }
+  ]
+}

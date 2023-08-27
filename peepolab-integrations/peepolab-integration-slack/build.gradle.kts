@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen")
     id("com.google.devtools.ksp")
     id("io.micronaut.library")
+    id("nu.studer.jooq")
 }
 
 dependencies {
@@ -14,4 +15,5 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-http-client")
     implementation(project(":peepolab-modules:peepolab-module-api"))
+    jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
 }
