@@ -15,20 +15,16 @@ allprojects {
     }
 }
 
-val taskA = tasks.register("taskA") {
-    doFirst {
-        println("taskA")
-    }
-}
-
-val taskB = tasks.register("taskB") {
-    doFirst {
-        println("taskB")
-    }
-}
-
 subprojects {
     pluginManager.withPlugin("nu.studer.jooq") {
+        gradle.taskGraph.whenReady {
+            if (tasks.findByName("test") != null) {
+                tasks.named("generateJooq").configure {
+                    enabled = false
+                }
+            }
+        }
+
         jooq {
             configurations {
                 create("main") {
@@ -58,7 +54,7 @@ subprojects {
         }
 
         if (project.name != "app") {
-            tasks.create("modulesJooq") {
+            tasks.create("generateLiquibaseChangelog") {
                 doFirst {
                     val dir = File(temporaryDir, "db")
                     if (dir.exists()) dir.deleteRecursively()
@@ -70,7 +66,7 @@ subprojects {
             }
 
             tasks.named("generateJooq") {
-                dependsOn("modulesJooq")
+                dependsOn("generateLiquibaseChangelog")
             }
         }
     }

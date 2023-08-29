@@ -24,5 +24,7 @@ dependencies {
     implementation("org.gitlab4j:gitlab4j-api:6.0.0-rc.2")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("org.assertj:assertj-core:3.11.1")
+    implementation("com.google.guava:guava:32.1.2-jre")
 
 }

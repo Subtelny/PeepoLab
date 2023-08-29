@@ -12,8 +12,11 @@ dependencies {
     implementation("org.glassfish.tyrus.bundles:tyrus-standalone-client:1.19")
     implementation("com.slack.api:bolt:$slackBoltVersion")
     implementation("com.slack.api:bolt-socket-mode:$slackBoltVersion")
+    implementation(project(":peepolab-modules:peepolab-module-api"))
+    implementation(project(":utilities"))
+    implementation("com.google.guava:guava:32.1.2-jre")
+    jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-http-client")
-    implementation(project(":peepolab-modules:peepolab-module-api"))
-    jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
+    testImplementation("org.assertj:assertj-core")
 }

@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":peepolab-integrations:peepolab-integration-slack"))
     implementation(project(":peepolab-integrations:peepolab-integration-gitlab"))
     jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
+    implementation("com.slack.api:bolt:1.30.0")
 }
 
 application {

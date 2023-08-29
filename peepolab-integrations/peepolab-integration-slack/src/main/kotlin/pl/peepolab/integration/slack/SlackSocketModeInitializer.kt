@@ -7,7 +7,7 @@ import io.micronaut.context.event.StartupEvent
 import io.micronaut.runtime.event.annotation.EventListener
 import jakarta.inject.Singleton
 import org.slf4j.LoggerFactory
-import pl.peepolab.integration.slack.command.SlackCommandHandler
+import pl.peepolab.integration.slack.`interface`.command.SlackSlashCommandHandler
 
 @Singleton
 class SlackSocketModeInitializer(
@@ -19,7 +19,7 @@ class SlackSocketModeInitializer(
 
     @EventListener
     fun onStartup(event: StartupEvent?) {
-        applicationContext.getBeansOfType(SlackCommandHandler::class.java)
+        applicationContext.getBeansOfType(SlackSlashCommandHandler::class.java)
             .forEach {
                 log.info("Registering Slack command handler: {}", it.getCommand())
                 socketModeApp.app.command(it.getCommand(), it)
