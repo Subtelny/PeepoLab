@@ -1,6 +1,6 @@
 package pl.peepolab.module.api.integration.dto
 
-class IntegrationType(val type: String) {
+open class IntegrationType(val type: String) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
