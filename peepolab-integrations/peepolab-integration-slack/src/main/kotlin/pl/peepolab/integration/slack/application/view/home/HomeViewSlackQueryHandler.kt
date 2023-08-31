@@ -3,31 +3,34 @@ package pl.peepolab.integration.slack.application.view.home
 import com.slack.api.model.block.LayoutBlock
 import com.slack.api.model.view.View
 import jakarta.inject.Singleton
+import pl.peepolab.integration.slack.application.GITLAB_INTEGRATION_TYPE
 import pl.peepolab.integration.slack.application.cqs.SlackQueryHandler
-import pl.peepolab.integration.slack.application.service.SlackAvailableIntegrations
+import pl.peepolab.integration.slack.application.integration.ExternalUserIntegrationStatus
+import pl.peepolab.integration.slack.application.integration.ExternalUserIntegrationsService
 import pl.peepolab.integration.slack.application.view.SlackViewFileLoader
 import pl.peepolab.integration.slack.application.view.builder.SlackLayoutBlocksBuilder
 import pl.peepolab.integration.slack.application.view.builder.SlackViewParameter
 import pl.peepolab.integration.slack.model.SlackUserId
-import pl.peepolab.module.api.integration.dto.AvailableIntegrationDTO
-import pl.peepolab.module.api.integration.dto.IntegrationAuthStrategy
-import pl.peepolab.module.api.integration.dto.IntegrationType
+import pl.peepolab.module.api.integration.dto.IntegrationAuthStrategyDTO
 
+/***
+ * Ten handler przewiduje obecnie, że jedyną inną integracją będzie GitLab. Do przepisania gdy będzie ich więcej.
+ */
 
-private const val AVAILABLE_INTEGRATION_FILE_NAME = "views/homeapp/available_integration.json"
+private const val GITLAB_INTEGRATION_FILE_NAME = "views/homeapp/gitlab_integration.json"
+private const val GITLAB_UNAUTHENTICATED_FILE_NAME = "views/homeapp/gitlab_unauthenticated.json"
 private const val HEADER_FILE_NAME = "views/homeapp/header.json"
-private val GITLAB_INTEGRATION_TYPE = IntegrationType("GITLAB")
 
 @Singleton
 class HomeViewSlackQueryHandler(
-    private val slackAvailableIntegrations: SlackAvailableIntegrations,
+    private val externalUserIntegrationsService: ExternalUserIntegrationsService,
 ) : SlackQueryHandler<CreateHomeViewSlackQuery, View> {
     override fun handle(query: CreateHomeViewSlackQuery): View {
         return View.builder()
             .type("home")
             .blocks(
                 header()
-                    .plus(availableIntegrations(query.userId))
+                    .plus(integrationsStatus(query.userId))
             )
             .build()
     }
@@ -39,21 +42,30 @@ class HomeViewSlackQueryHandler(
             .build()
     }
 
-    private fun availableIntegrations(userId: SlackUserId): List<LayoutBlock> {
-        //TODO - Przerobić gdy będzie więcej integracji
-        val integration = slackAvailableIntegrations.findAvailableIntegration(userId, GITLAB_INTEGRATION_TYPE)
-        return integration?.let { prepareAvailableIntegration(it) } ?: emptyList()
+    private fun integrationsStatus(userId: SlackUserId): List<LayoutBlock> {
+        val info = externalUserIntegrationsService.getUserIntegrationInformation(userId, GITLAB_INTEGRATION_TYPE)
+        return prepareIntegrationStatus(info)
     }
 
-    private fun prepareAvailableIntegration(
-        integration: AvailableIntegrationDTO
+    private fun prepareIntegrationStatus(
+        integration: ExternalUserIntegrationStatus
     ): List<LayoutBlock> {
-        //TODO - Przerobić gdy będą inne opcje autoryzacji
-        val authStrategy = integration.authStrategy
-        if (authStrategy is IntegrationAuthStrategy.OpenId) {
-            val blocksJson = SlackViewFileLoader.loadViewJson(AVAILABLE_INTEGRATION_FILE_NAME)
+        return when (integration) {
+            is ExternalUserIntegrationStatus.Integrated -> emptyList()
+            is ExternalUserIntegrationStatus.Unauthenticated -> unauthenticated(integration.authStrategy)
+            is ExternalUserIntegrationStatus.NotIntegrated -> unauthenticated(integration.authStrategy, false)
+        }
+    }
+
+    private fun unauthenticated(
+        authStrategy: IntegrationAuthStrategyDTO,
+        integrated: Boolean = true
+    ): List<LayoutBlock> {
+        if (authStrategy is IntegrationAuthStrategyDTO.OIDC) {
+            val view = if (integrated) GITLAB_UNAUTHENTICATED_FILE_NAME else GITLAB_INTEGRATION_FILE_NAME
+            val blocksJson = SlackViewFileLoader.loadViewJson(view)
             val parameters = listOf(
-                SlackViewParameter.of("GITLAB_OPENID_URL", authStrategy.url),
+                SlackViewParameter.of("GITLAB_OPENID_URL", authStrategy.buildUrl()),
             )
             return SlackLayoutBlocksBuilder()
                 .addBlocks(blocksJson, parameters)
@@ -62,6 +74,17 @@ class HomeViewSlackQueryHandler(
         return emptyList()
     }
 
+    private fun IntegrationAuthStrategyDTO.OIDC.buildUrl(): String {
+        val scopes = scope.joinToString(separator = "+")
+        return buildString {
+            append(authorizationEndpoint)
+                .append("?").append("client_id=$clientId")
+                .append("&").append("response_type=code")
+                .append("&").append("scope=$scopes")
+                .append("&").append("redirect_uri=$redirectUri")
+                .append("&").append("state=$state")
+        }
+    }
 
 }
 

@@ -2,14 +2,14 @@ package pl.peepolab.integration.slack.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import pl.peepolab.module.api.integration.dto.IntegrationType
+import pl.peepolab.module.api.integration.dto.UserIntegrationType
 
 class SlackIntegrationTypeKtTest {
 
     @Test
     fun `Should properly recognize type of IntegrationType while using isSlack() function`() {
         // Given
-        val otherIntegrationType = IntegrationType("OTHER")
+        val otherIntegrationType = UserIntegrationType("OTHER")
         val slackIntegrationType = SlackIntegrationType
         // When
 

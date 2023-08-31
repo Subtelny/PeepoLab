@@ -1,5 +1,5 @@
 package pl.peepolab.integration.gitlab.integration
 
-import pl.peepolab.module.api.integration.dto.IntegrationType
+import pl.peepolab.module.model.integration.UserIntegrationType
 
-object GitlabIntegrationType : IntegrationType("gitlab")
+object GitlabIntegrationType : UserIntegrationType("GITLAB")

@@ -1,0 +1,58 @@
+[
+  {
+    "type": "context",
+    "elements": [
+      {
+        "type": "image",
+        "image_url": "https://api.slack.com/img/blocks/bkb_template_images/placeholder.png",
+        "alt_text": "placeholder"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "*Integracje wymagające interakcji*"
+    }
+  },
+  {
+    "type": "divider"
+  },
+  {
+    "type": "header",
+    "text": {
+      "type": "plain_text",
+      "text": "GitLab"
+    }
+  },
+  {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": "*Niestety nie mogliśmy odtworzyć Twojej sesji. Spróbuj zautoryzować się ponownie.*"
+    },
+    "accessory": {
+      "type": "image",
+      "image_url": "https://about.gitlab.com/images/press/logo/png/gitlab-logo-500.png",
+      "alt_text": "GitLab"
+    }
+  },
+  {
+    "type": "actions",
+    "elements": [
+      {
+        "type": "button",
+        "text": {
+          "type": "plain_text",
+          "text": "Autoryzuj się z GitLab"
+        },
+        "style": "primary",
+        "url": "{GITLAB_OPENID_URL}"
+      }
+    ]
+  },
+  {
+    "type": "divider"
+  }
+]

@@ -7,12 +7,13 @@ import jakarta.inject.Singleton
 import pl.peepolab.integration.slack.application.cqs.SlackCommandHandler
 import pl.peepolab.integration.slack.application.cqs.SlackQueryHandler
 import pl.peepolab.utilities.cqs.HandlerRegistry
+import pl.peepolab.utilities.cqs.MicronautHandlerRegistry
 import pl.peepolab.utilities.resolveType
 
 @Singleton
 class SlackHandlerRegistry(
     private val appContext: ApplicationContext
-) : HandlerRegistry() {
+) : MicronautHandlerRegistry() {
 
     @EventListener
     fun onStartup(event: StartupEvent) {
@@ -21,16 +22,6 @@ class SlackHandlerRegistry(
 
         val tmpQueryHandlers = findAllBeans<SlackQueryHandler<*, *>>(appContext)
         queryHandlers.putAll(tmpQueryHandlers)
-    }
-
-    private inline fun <reified T> findAllBeans(appContext: ApplicationContext): Map<Class<*>, T> {
-        val tmpCommandProviders = mutableMapOf<Class<*>, T>()
-        appContext.getBeanDefinitions(T::class.java).forEach { beanDefinition ->
-            val generics = resolveType(beanDefinition.beanType)
-            val keyType: Class<*> = generics[0]
-            tmpCommandProviders[keyType] = appContext.getBean(beanDefinition.beanType) as T
-        }
-        return tmpCommandProviders
     }
 
 }

@@ -8,6 +8,7 @@ plugins {
 dependencies {
     implementation(project(":peepolab-modules:peepolab-module-model"))
     implementation(project(":peepolab-modules:peepolab-module-api"))
+    implementation(project(":peepolab-modules:peepolab-module-model"))
     implementation(project(":utilities"))
     implementation("org.gitlab4j:gitlab4j-api:6.0.0-rc.2")
     implementation("io.micronaut:micronaut-http-client")

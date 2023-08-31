@@ -7,8 +7,8 @@ import pl.peepolab.utilities.cqs.query.QueryHandler
 
 abstract class HandlerRegistry {
 
-    protected val commandHandlers: MutableMap<Class<*>, CommandHandler<*>> = mutableMapOf()
-    protected val queryHandlers: MutableMap<Class<*>, QueryHandler<*, *>> = mutableMapOf()
+    val commandHandlers: MutableMap<Class<*>, CommandHandler<*>> = mutableMapOf()
+    val queryHandlers: MutableMap<Class<*>, QueryHandler<*, *>> = mutableMapOf()
 
     @Suppress("UNCHECKED_CAST")
     fun <COMMAND : Command> getCommandHandler(commandType: Class<COMMAND>): CommandHandler<COMMAND> {

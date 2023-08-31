@@ -7,7 +7,7 @@ import io.micronaut.context.event.StartupEvent
 import io.micronaut.runtime.event.annotation.EventListener
 import jakarta.inject.Singleton
 import org.slf4j.LoggerFactory
-import pl.peepolab.integration.slack.`interface`.command.SlackSlashCommandHandler
+import pl.peepolab.integration.slack.application.cqs.command.SlackSlashCommandHandler
 
 @Singleton
 class SlackSocketModeInitializer(
