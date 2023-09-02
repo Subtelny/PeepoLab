@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen")
     id("com.google.devtools.ksp")
     id("io.micronaut.library")
-    id("nu.studer.jooq")
 }
 
 dependencies {
@@ -18,7 +17,6 @@ dependencies {
     implementation("org.glassfish.tyrus.bundles:tyrus-standalone-client:1.19")
 
     implementation("com.google.guava:guava:32.1.2-jre")
-    jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-http-client")
     testImplementation("org.assertj:assertj-core")

@@ -12,6 +12,8 @@ plugins {
 apply(from = "${rootDir}/dependencies.gradle")
 
 dependencies {
+    implementation(project(":jooq-generated-tables"))
+    implementation(project(":utilities"))
     implementation(project(":peepolab-modules:peepolab-module-core"))
     implementation(project(":peepolab-modules:peepolab-module-model"))
     implementation(project(":peepolab-modules:peepolab-module-api"))

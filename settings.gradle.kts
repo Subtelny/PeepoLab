@@ -27,3 +27,4 @@ file("$rootDir/peepolab-modules")
 file("$rootDir/peepolab-integrations")
     .listFiles { it -> it.isDirectory && it.name.startsWith("peepolab-")}
     ?.forEach { include(":peepolab-integrations:${it.name}") }
+include("jooq-generated-tables")

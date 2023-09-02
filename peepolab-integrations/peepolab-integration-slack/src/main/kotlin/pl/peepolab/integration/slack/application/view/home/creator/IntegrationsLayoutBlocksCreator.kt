@@ -1,54 +1,35 @@
-package pl.peepolab.integration.slack.application.view.home
+package pl.peepolab.integration.slack.application.view.home.creator
 
 import com.slack.api.model.block.LayoutBlock
-import com.slack.api.model.view.View
-import jakarta.inject.Singleton
-import pl.peepolab.integration.slack.application.GITLAB_INTEGRATION_TYPE
-import pl.peepolab.integration.slack.application.cqs.SlackQueryHandler
 import pl.peepolab.integration.slack.application.integration.ExternalUserIntegrationStatus
 import pl.peepolab.integration.slack.application.integration.ExternalUserIntegrationsService
+import pl.peepolab.integration.slack.application.view.LayoutBlocksCreator
 import pl.peepolab.integration.slack.application.view.SlackViewFileLoader
 import pl.peepolab.integration.slack.application.view.builder.SlackLayoutBlocksBuilder
 import pl.peepolab.integration.slack.application.view.builder.SlackViewParameter
 import pl.peepolab.integration.slack.model.SlackUserId
-import pl.peepolab.module.api.integration.dto.IntegrationAuthStrategyDTO
+import pl.peepolab.module.api.integration.dto.ExternalIntegrationAuthStrategyDTO
+import pl.peepolab.module.model.integration.ExternalIntegrationType
 
 /***
- * Ten handler przewiduje obecnie, że jedyną inną integracją będzie GitLab. Do przepisania gdy będzie ich więcej.
+ * Ten creator przewiduje obecnie, że jedyną integracją będzie GitLab. Do przepisania gdy będzie ich więcej.
  */
 
+private val GITLAB_INTEGRATION_TYPE = ExternalIntegrationType("GITLAB")
 private const val GITLAB_INTEGRATION_FILE_NAME = "views/homeapp/gitlab_integration.json"
 private const val GITLAB_UNAUTHENTICATED_FILE_NAME = "views/homeapp/gitlab_unauthenticated.json"
-private const val HEADER_FILE_NAME = "views/homeapp/header.json"
 
-@Singleton
-class HomeViewSlackQueryHandler(
+class IntegrationsLayoutBlocksCreator(
     private val externalUserIntegrationsService: ExternalUserIntegrationsService,
-) : SlackQueryHandler<CreateHomeViewSlackQuery, View> {
-    override fun handle(query: CreateHomeViewSlackQuery): View {
-        return View.builder()
-            .type("home")
-            .blocks(
-                header()
-                    .plus(integrationsStatus(query.userId))
-            )
-            .build()
-    }
+) : LayoutBlocksCreator {
 
-    private fun header(): List<LayoutBlock> {
-        val blocksJson = SlackViewFileLoader.loadViewJson(HEADER_FILE_NAME)
-        return SlackLayoutBlocksBuilder()
-            .addBlocks(blocksJson)
-            .build()
-    }
-
-    private fun integrationsStatus(userId: SlackUserId): List<LayoutBlock> {
-        val info = externalUserIntegrationsService.getUserIntegrationInformation(userId, GITLAB_INTEGRATION_TYPE)
+    override fun create(slackUserId: SlackUserId): List<LayoutBlock> {
+        val info = externalUserIntegrationsService.getUserIntegrationInformation(slackUserId, GITLAB_INTEGRATION_TYPE)
         return prepareIntegrationStatus(info)
     }
 
     private fun prepareIntegrationStatus(
-        integration: ExternalUserIntegrationStatus
+        integration: ExternalUserIntegrationStatus,
     ): List<LayoutBlock> {
         return when (integration) {
             is ExternalUserIntegrationStatus.Integrated -> emptyList()
@@ -58,10 +39,10 @@ class HomeViewSlackQueryHandler(
     }
 
     private fun unauthenticated(
-        authStrategy: IntegrationAuthStrategyDTO,
-        integrated: Boolean = true
+        authStrategy: ExternalIntegrationAuthStrategyDTO,
+        integrated: Boolean = true,
     ): List<LayoutBlock> {
-        if (authStrategy is IntegrationAuthStrategyDTO.OIDC) {
+        if (authStrategy is ExternalIntegrationAuthStrategyDTO.OIDC) {
             val view = if (integrated) GITLAB_UNAUTHENTICATED_FILE_NAME else GITLAB_INTEGRATION_FILE_NAME
             val blocksJson = SlackViewFileLoader.loadViewJson(view)
             val parameters = listOf(
@@ -74,7 +55,7 @@ class HomeViewSlackQueryHandler(
         return emptyList()
     }
 
-    private fun IntegrationAuthStrategyDTO.OIDC.buildUrl(): String {
+    private fun ExternalIntegrationAuthStrategyDTO.OIDC.buildUrl(): String {
         val scopes = scope.joinToString(separator = "+")
         return buildString {
             append(authorizationEndpoint)
@@ -87,4 +68,3 @@ class HomeViewSlackQueryHandler(
     }
 
 }
-

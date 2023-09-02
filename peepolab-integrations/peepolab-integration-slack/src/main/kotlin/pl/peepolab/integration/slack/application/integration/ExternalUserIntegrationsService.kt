@@ -1,48 +1,45 @@
 package pl.peepolab.integration.slack.application.integration
 
 import jakarta.inject.Singleton
+import pl.peepolab.integration.slack.application.SlackUserService
 import pl.peepolab.integration.slack.model.SlackUserId
-import pl.peepolab.module.api.integration.dto.IntegrationAuthStrategyDTO
+import pl.peepolab.module.api.integration.dto.ExternalIntegrationAuthStrategyDTO
 import pl.peepolab.module.api.ui.CoreService
-import pl.peepolab.module.api.ui.query.GetUserIntegrationStrategyQuery
-import pl.peepolab.module.api.ui.query.GetUserIntegrationsStatusQuery
-import pl.peepolab.module.api.ui.query.GetUserIntegrationsStatusResult
-import pl.peepolab.module.model.integration.UserIntegrationType
-import pl.peepolab.module.model.user.model.ExternalUserId
+import pl.peepolab.module.api.ui.query.GetUserExternalIntegrationStatusQuery
+import pl.peepolab.module.api.ui.query.GetUserExternalIntegrationStrategyQuery
+import pl.peepolab.module.model.integration.ExternalIntegrationType
+import pl.peepolab.module.model.user.model.UserId
 
 @Singleton
 class ExternalUserIntegrationsService(
     private val coreService: CoreService,
+    private val slackUserService: SlackUserService,
 ) {
 
     fun getUserIntegrationInformation(
         slackUserId: SlackUserId,
-        integrationType: UserIntegrationType
+        integrationType: ExternalIntegrationType,
     ): ExternalUserIntegrationStatus {
-        val query = GetUserIntegrationsStatusQuery(slackUserId.toExternalUserId()) { it == integrationType }
+        val userId = slackUserService.getSlackUser(slackUserId).userId
+        val query = GetUserExternalIntegrationStatusQuery(userId, integrationType)
         val result = coreService.query(query)
-        val status = result.getIntegrationStatus(integrationType)
 
-        if (status.isIntegrated.not()) {
-            val authStrategy = getUserIntegrationStrategy(slackUserId.toExternalUserId(), integrationType)
+        if (result.isIntegrated.not()) {
+            val authStrategy = getUserIntegrationStrategy(userId, integrationType)
             return ExternalUserIntegrationStatus.NotIntegrated(authStrategy)
         }
-        if (status.isAuthorized.not()) {
-            val authStrategy = getUserIntegrationStrategy(slackUserId.toExternalUserId(), integrationType)
+        if (result.isAuthorized.not()) {
+            val authStrategy = getUserIntegrationStrategy(userId, integrationType)
             return ExternalUserIntegrationStatus.Unauthenticated(authStrategy)
         }
         return ExternalUserIntegrationStatus.Integrated
     }
 
-    private fun GetUserIntegrationsStatusResult.getIntegrationStatus(integrationType: UserIntegrationType) =
-        integrations[integrationType]
-            ?: throw IllegalStateException("Integration $integrationType not found")
-
     private fun getUserIntegrationStrategy(
-        externalUserId: ExternalUserId,
-        integrationType: UserIntegrationType,
-    ): IntegrationAuthStrategyDTO {
-        val query = GetUserIntegrationStrategyQuery(externalUserId, integrationType)
+        userId: UserId,
+        integrationType: ExternalIntegrationType,
+    ): ExternalIntegrationAuthStrategyDTO {
+        val query = GetUserExternalIntegrationStrategyQuery(userId, integrationType)
         return coreService.query(query)
     }
 

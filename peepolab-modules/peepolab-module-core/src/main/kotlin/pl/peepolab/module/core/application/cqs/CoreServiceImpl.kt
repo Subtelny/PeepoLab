@@ -14,10 +14,10 @@ class CoreServiceImpl(
 ) : CoreService {
 
     override fun execute(command: CoreCommand) {
-        TODO("Not yet implemented")
+        coreCommandQueryBus.executeCommand(command)
     }
 
     override fun <RESULT> query(query: CoreQuery<RESULT>): RESULT {
-        TODO("Not yet implemented")
+        return coreCommandQueryBus.executeQuery(query)
     }
 }

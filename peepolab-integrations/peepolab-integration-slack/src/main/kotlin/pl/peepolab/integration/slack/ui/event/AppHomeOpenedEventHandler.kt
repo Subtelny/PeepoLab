@@ -6,7 +6,7 @@ import com.slack.api.bolt.socket_mode.SocketModeApp
 import com.slack.api.model.view.View
 import jakarta.inject.Singleton
 import pl.peepolab.integration.slack.application.cqs.SlackQueryBus
-import pl.peepolab.integration.slack.application.view.home.CreateHomeViewSlackQuery
+import pl.peepolab.integration.slack.application.view.home.GetAppHomeViewSlackQuery
 import pl.peepolab.integration.slack.model.SlackUserId
 
 @Singleton
@@ -33,6 +33,6 @@ class AppHomeOpenedEventHandler(
 
     private fun createAppHomeView(payload: AppHomeOpenedPayload): View {
         val slackUserId = SlackUserId(payload.event.user)
-        return slackQueryBus.executeQuery(CreateHomeViewSlackQuery(slackUserId))
+        return slackQueryBus.executeQuery(GetAppHomeViewSlackQuery(slackUserId))
     }
 }
