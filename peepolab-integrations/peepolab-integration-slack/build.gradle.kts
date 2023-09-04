@@ -8,6 +8,7 @@ plugins {
 dependencies {
     implementation(project(":peepolab-modules:peepolab-module-api"))
     implementation(project(":peepolab-modules:peepolab-module-model"))
+    implementation(project(":jooq-generated-tables"))
     implementation(project(":utilities"))
 
 
@@ -20,4 +21,6 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-http-client")
     testImplementation("org.assertj:assertj-core")
+    implementation("org.jooq:jooq")
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 }

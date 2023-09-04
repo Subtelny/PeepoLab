@@ -4,20 +4,19 @@ import jakarta.inject.Singleton
 import pl.peepolab.module.api.ui.CoreService
 import pl.peepolab.module.api.ui.command.CoreCommand
 import pl.peepolab.module.api.ui.query.CoreQuery
-import pl.peepolab.module.core.infrastructure.persistence.cqs.CoreCommandQueryBus
-import pl.peepolab.utilities.cqs.command.Command
-import pl.peepolab.utilities.cqs.query.Query
+import pl.peepolab.module.core.infrastructure.CoreCommandQueryBus
 
 @Singleton
 class CoreServiceImpl(
-    private val coreCommandQueryBus: CoreCommandQueryBus
+    private val coreCommandBus: CoreCommandBus,
+    private val coreQueryBus: CoreQueryBus,
 ) : CoreService {
 
     override fun execute(command: CoreCommand) {
-        coreCommandQueryBus.executeCommand(command)
+        coreCommandBus.executeCommand(command)
     }
 
     override fun <RESULT> query(query: CoreQuery<RESULT>): RESULT {
-        return coreCommandQueryBus.executeQuery(query)
+        return coreQueryBus.executeQuery(query)
     }
 }

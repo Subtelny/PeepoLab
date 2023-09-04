@@ -5,20 +5,19 @@ import pl.peepolab.utilities.cqs.command.CommandHandler
 import pl.peepolab.utilities.cqs.query.Query
 import pl.peepolab.utilities.cqs.query.QueryHandler
 
-abstract class HandlerRegistry {
+interface HandlerRegistry {
 
-    val commandHandlers: MutableMap<Class<*>, CommandHandler<*>> = mutableMapOf()
-    val queryHandlers: MutableMap<Class<*>, QueryHandler<*, *>> = mutableMapOf()
+    fun <COMMAND : Command> findCommandHandler(commandType: Class<COMMAND>): CommandHandler<COMMAND>?
 
-    @Suppress("UNCHECKED_CAST")
+    fun <RESULT, QUERY : Query<RESULT>> findQueryHandler(queryType: Class<QUERY>): QueryHandler<QUERY, RESULT>?
+
     fun <COMMAND : Command> getCommandHandler(commandType: Class<COMMAND>): CommandHandler<COMMAND> {
-        return commandHandlers[commandType] as? CommandHandler<COMMAND>
+        return findCommandHandler(commandType)
             ?: throw IllegalArgumentException("Handler not found for command type: ${commandType.name}")
     }
 
-    @Suppress("UNCHECKED_CAST")
     fun <RESULT, QUERY : Query<RESULT>> getQueryHandler(queryType: Class<QUERY>): QueryHandler<QUERY, RESULT> {
-        return queryHandlers[queryType] as? QueryHandler<QUERY, RESULT>
+        return findQueryHandler(queryType)
             ?: throw IllegalArgumentException("Handler not found for query type: ${queryType.name}")
     }
 

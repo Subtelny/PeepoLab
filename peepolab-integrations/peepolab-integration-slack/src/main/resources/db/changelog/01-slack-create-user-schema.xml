@@ -10,7 +10,7 @@
             <column name="slackId" type="varchar(25)">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
-            <column name="userId" type="int">
+            <column name="userId" type="uuid">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="email" type="varchar(255)">

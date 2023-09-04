@@ -10,4 +10,5 @@ dependencies {
     implementation(project(":peepolab-modules:peepolab-module-api"))
     implementation(project(":peepolab-modules:peepolab-module-model"))
     implementation("io.micronaut:micronaut-http-client")
+    implementation("org.jooq:jooq")
 }
