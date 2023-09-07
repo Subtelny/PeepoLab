@@ -10,19 +10,23 @@ plugins {
 }
 
 dependencies {
-    jooqGenerator("org.testcontainers:testcontainers:1.19.0")
-    jooqGenerator("org.testcontainers:postgresql:1.19.0")
-    jooqGenerator("ch.qos.logback:logback-core:1.4.8")
-    jooqGenerator("ch.qos.logback:logback-classic:1.4.8")
-    jooqGenerator("org.postgresql:postgresql:42.6.0")
+    val testcontainersVersion = "1.19.0"
+    val logbackVersion = "1.4.8"
+    val postgresVersion = "42.6.0"
+
+    jooqGenerator("org.testcontainers:testcontainers:$testcontainersVersion")
+    jooqGenerator("org.testcontainers:postgresql:$testcontainersVersion")
+    jooqGenerator("ch.qos.logback:logback-core:$logbackVersion")
+    jooqGenerator("ch.qos.logback:logback-classic:$logbackVersion")
+    jooqGenerator("org.postgresql:postgresql:$postgresVersion")
     jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
 
-    liquibaseRuntime("org.testcontainers:testcontainers:1.19.0")
-    liquibaseRuntime("org.testcontainers:postgresql:1.19.0")
-    liquibaseRuntime("ch.qos.logback:logback-core:1.4.8")
+    liquibaseRuntime("org.testcontainers:testcontainers:$testcontainersVersion")
+    liquibaseRuntime("org.testcontainers:postgresql:$testcontainersVersion")
+    liquibaseRuntime("ch.qos.logback:logback-core:$logbackVersion")
+    liquibaseRuntime("ch.qos.logback:logback-classic:$logbackVersion")
+    liquibaseRuntime("org.postgresql:postgresql:$postgresVersion")
     liquibaseRuntime("org.liquibase:liquibase-core:4.23.1")
-    liquibaseRuntime("ch.qos.logback:logback-classic:1.4.8")
-    liquibaseRuntime("org.postgresql:postgresql:42.6.0")
     liquibaseRuntime("info.picocli:picocli:4.7.5")
 }
 
