@@ -10,6 +10,9 @@
             <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
         </createTable>
     </changeSet>
 

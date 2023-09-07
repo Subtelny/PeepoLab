@@ -51,6 +51,7 @@ internal class SlackInitialization(
             }
         applicationContext.getBeansOfType(EventHandler::class.java)
             .forEach {
+                log.info("Registering Slack event handler: {}", it::class.simpleName)
                 socketModeApp.app.event(it)
             }
         socketModeApp.startAsync()

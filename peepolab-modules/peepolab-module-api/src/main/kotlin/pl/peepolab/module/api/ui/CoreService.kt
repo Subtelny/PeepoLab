@@ -5,7 +5,7 @@ import pl.peepolab.module.api.ui.query.CoreQuery
 
 interface CoreService {
 
-    fun execute(command: CoreCommand)
+    fun <RESULT> command(command: CoreCommand<RESULT>): RESULT
 
     fun <RESULT> query(query: CoreQuery<RESULT>): RESULT
 

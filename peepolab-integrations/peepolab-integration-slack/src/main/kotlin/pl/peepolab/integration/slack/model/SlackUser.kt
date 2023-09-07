@@ -7,4 +7,7 @@ data class SlackUser(
     val userId: UserId,
     val slackUserId: SlackUserId,
     val email: Email,
+    val name: String,
+    val realName: String,
+    val avatar: String,
 )

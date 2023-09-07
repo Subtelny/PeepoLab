@@ -5,18 +5,20 @@ import org.gitlab4j.api.Constants
 import org.gitlab4j.api.GitLabApi
 
 fun main(args: Array<String>) {
+    System.getProperties().setProperty("org.jooq.no-logo", "true");
+    System.getProperties().setProperty("org.jooq.no-tips", "true");
     Micronaut.run(*args)
 //    val api = GitLabApi("https://gitlab.com", "glpat-mYhoVEN3sygzxrKk4Nrq")
 //    val api = GitLabApi("http://127.0.0.1", "201e6b55caaec51d41a55353707e58cf92a366bee3e4d9eafe79f5de02bbb7b7")
 
-    GitLabApi(
-        GitLabApi.ApiVersion.V4,
-        "http://127.0.0.1",
-        Constants.TokenType.OAUTH2_ACCESS,
-        "3797eb096ad18d9263a3ce5b80239fa00bb59e6e5645dcde8cdd6acfcb690123",
-        null,
-        emptyMap(),
-    )
+//    GitLabApi(
+//        GitLabApi.ApiVersion.V4,
+//        "http://127.0.0.1",
+//        Constants.TokenType.OAUTH2_ACCESS,
+//        "3797eb096ad18d9263a3ce5b80239fa00bb59e6e5645dcde8cdd6acfcb690123",
+//        null,
+//        emptyMap(),
+//    )
     /*
 
 code : b3751eb3c6283df1ae61e76bfc386af44d5257d8670ccc525ac2c9130b687edf

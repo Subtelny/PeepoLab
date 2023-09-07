@@ -12,8 +12,8 @@ class CoreServiceImpl(
     private val coreQueryBus: CoreQueryBus,
 ) : CoreService {
 
-    override fun execute(command: CoreCommand) {
-        coreCommandBus.executeCommand(command)
+    override fun <RESULT> command(command: CoreCommand<RESULT>): RESULT {
+        return coreCommandBus.executeCommand(command)
     }
 
     override fun <RESULT> query(query: CoreQuery<RESULT>): RESULT {

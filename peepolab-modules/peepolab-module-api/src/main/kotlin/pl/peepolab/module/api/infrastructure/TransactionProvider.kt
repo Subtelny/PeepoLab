@@ -6,6 +6,8 @@ interface TransactionProvider {
 
     fun transactional(block: () -> Unit)
 
+    fun <T> transactionalResult(block: () -> T): T
+
     fun getCurrentTransaction(): DSLContext?
 
 }

@@ -1,5 +1,6 @@
 package pl.peepolab.utilities.datatype
 
-data class Email(
+@JvmInline
+value class Email(
     val value: String,
 )

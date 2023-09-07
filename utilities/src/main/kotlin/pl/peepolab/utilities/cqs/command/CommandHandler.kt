@@ -1,7 +1,7 @@
 package pl.peepolab.utilities.cqs.command
 
-interface CommandHandler<COMMAND : Command> {
+interface CommandHandler<COMMAND : Command<RESULT>, RESULT> {
 
-    fun handle(command: COMMAND)
+    fun handle(command: COMMAND): RESULT
 
 }

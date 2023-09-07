@@ -1,3 +1,3 @@
 package pl.peepolab.utilities.cqs.command
 
-interface Command
+interface Command<RESULT>

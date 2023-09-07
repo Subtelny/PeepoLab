@@ -11,6 +11,6 @@ interface CoreCommandBus : CommandBus
 
 interface CoreQueryBus : QueryBus
 
-interface CoreCommandHandler<COMMAND : CoreCommand> : CommandHandler<COMMAND>
+interface CoreCommandHandler<COMMAND : CoreCommand<RESULT>, RESULT> : CommandHandler<COMMAND, RESULT>
 
 interface CoreQueryHandler<QUERY : CoreQuery<RESULT>, RESULT> : QueryHandler<QUERY, RESULT>

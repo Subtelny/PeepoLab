@@ -1,4 +1,4 @@
-package pl.peepolab.module.api.ui
+package pl.peepolab.module.api.ui.query
 
 import pl.peepolab.utilities.datatype.Email
 

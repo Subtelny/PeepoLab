@@ -2,6 +2,8 @@ package pl.peepolab.integration.slack.ui.event
 
 import com.slack.api.app_backend.events.handler.AppHomeOpenedHandler
 import com.slack.api.app_backend.events.payload.AppHomeOpenedPayload
+import com.slack.api.bolt.socket_mode.SocketModeApp
+import com.slack.api.methods.MethodsClient
 import pl.peepolab.integration.slack.application.SlackUserInteraction
 import pl.peepolab.integration.slack.model.SlackUser
 import pl.peepolab.integration.slack.model.SlackUserId
@@ -17,4 +19,5 @@ abstract class AppHomeOpenedSlackUserInteraction : AppHomeOpenedHandler(), Slack
     }
 
     abstract fun handle(invoker: SlackUser, payload: AppHomeOpenedPayload)
+
 }

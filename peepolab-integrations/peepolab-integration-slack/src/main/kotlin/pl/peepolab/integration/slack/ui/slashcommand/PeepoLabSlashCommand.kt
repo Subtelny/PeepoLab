@@ -3,6 +3,7 @@ package pl.peepolab.integration.slack.ui.slashcommand
 import com.slack.api.bolt.context.builtin.SlashCommandContext
 import com.slack.api.bolt.request.builtin.SlashCommandRequest
 import com.slack.api.bolt.response.Response
+import com.slack.api.bolt.socket_mode.SocketModeApp
 import com.slack.api.methods.request.users.UsersListRequest
 import jakarta.inject.Singleton
 import pl.peepolab.integration.slack.application.SlackUserService
@@ -13,8 +14,9 @@ private const val COMMAND_NAME = "/plab"
 
 @Singleton
 class PeepoLabSlashCommand(
-    slackUserService: SlackUserService,
-) : SlashCommandSlackUserInteraction(slackUserService) {
+    override val slackUserService: SlackUserService,
+    override val socketModeApp: SocketModeApp,
+) : SlashCommandSlackUserInteraction() {
 
     override fun getCommand(): String = COMMAND_NAME
 

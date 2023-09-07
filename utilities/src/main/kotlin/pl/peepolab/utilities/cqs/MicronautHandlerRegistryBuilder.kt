@@ -9,10 +9,10 @@ class MicronautHandlerRegistryBuilder(
     private val appContext: ApplicationContext,
 ) {
 
-    private val commandHandlers = mutableMapOf<Class<*>, CommandHandler<*>>()
+    private val commandHandlers = mutableMapOf<Class<*>, CommandHandler<*, *>>()
     private val queryHandlers = mutableMapOf<Class<*>, QueryHandler<*, *>>()
 
-    fun <T : CommandHandler<*>> registerCommandHandlers(commandHandlerType: Class<T>): MicronautHandlerRegistryBuilder {
+    fun <T : CommandHandler<*, *>> registerCommandHandlers(commandHandlerType: Class<T>): MicronautHandlerRegistryBuilder {
         appContext.getBeanDefinitions(commandHandlerType).forEach { beanDefinition ->
             val generics = resolveType(beanDefinition.beanType)
             val keyType: Class<*> = generics[0]

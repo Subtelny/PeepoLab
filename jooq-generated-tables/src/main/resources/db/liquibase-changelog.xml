@@ -5,7 +5,18 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-    <includeAll path="../../../build/tmp/generateLiquibaseChangelog/db/changelog"/>
+    <includeAll path="build/tmp/generateLiquibaseChangelog/db/changelog"/>
     <includeAll path="db/changelog"/>
+
+    <changeSet id="asd" author="sjanda">
+        <createTable tableName="test_user">
+            <column name="id" type="uuid">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>

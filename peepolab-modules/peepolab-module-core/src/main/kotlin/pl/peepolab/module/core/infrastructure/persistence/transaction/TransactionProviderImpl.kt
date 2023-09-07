@@ -15,13 +15,31 @@ class TransactionProviderImpl(
     override fun transactional(block: () -> Unit) {
         DSL.using(dslContext.configuration()).transaction { config ->
             transaction.set(DSL.using(config))
-            block()
+            catchException(block)
             transaction.remove()
+        }
+    }
+
+    override fun <T> transactionalResult(block: () -> T): T {
+        return DSL.using(dslContext.configuration()).transactionResult { config ->
+            transaction.set(DSL.using(config))
+            val result = catchException(block)
+            transaction.remove()
+            result
         }
     }
 
     override fun getCurrentTransaction(): DSLContext? {
         return transaction.get()
+    }
+
+    private fun <T> catchException(block: () -> T): T {
+        try {
+            return block()
+        } catch (e: Exception) {
+            transaction.remove()
+            throw e
+        }
     }
 
 }

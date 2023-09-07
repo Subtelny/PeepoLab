@@ -16,9 +16,9 @@ internal class CoreCommandQueryBus : CoreCommandBus, CoreQueryBus {
     private var handlerRegistry: HandlerRegistry = EmptyHandlerRegistry
 
     @Suppress("UNCHECKED_CAST")
-    override fun executeCommand(command: Command) {
-        val handler = handlerRegistry.getCommandHandler(command::class.java) as CommandHandler<Command>
-        handler.handle(command)
+    override fun <RESULT> executeCommand(command: Command<RESULT>): RESULT {
+        val handler = handlerRegistry.getCommandHandler(command::class.java) as CommandHandler<Command<RESULT>, RESULT>
+        return handler.handle(command)
     }
 
     @Suppress("UNCHECKED_CAST")

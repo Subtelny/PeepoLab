@@ -1,23 +1,30 @@
 package pl.peepolab.integration.slack.application
 
 import jakarta.inject.Singleton
-import pl.peepolab.integration.slack.infrastructure.persistence.SlackUserDao
 import pl.peepolab.integration.slack.model.SlackUser
 import pl.peepolab.integration.slack.model.SlackUserId
-import pl.peepolab.utilities.dao.Dao
+import pl.peepolab.integration.slack.model.SlackUserRepository
+import pl.peepolab.module.api.infrastructure.TransactionProvider
+import pl.peepolab.module.api.ui.CoreService
+import pl.peepolab.module.api.ui.command.CreateUserCommand
 
 @Singleton
 class SlackUserServiceImpl(
-    private val slackUserDao: Dao<SlackUserId, SlackUser>,
+    private val transactionProvider: TransactionProvider,
+    private val slackUserRepository: SlackUserRepository,
+    private val coreService: CoreService,
 ) : SlackUserService {
 
     override fun createSlackUser(data: CreateSlackUserData): SlackUser {
-        TODO("Not yet implemented")
+        return transactionProvider.transactionalResult {
+            val userId = coreService.command(CreateUserCommand(data.email))
+            val slackUser = slackUserRepository.createSlackUser(userId, data)
+            slackUser
+        }
     }
 
     override fun findSlackUser(slackUserId: SlackUserId): SlackUser? {
-        return slackUserDao.find(slackUserId)
+        return slackUserRepository.findSlackUser(slackUserId)
     }
-
 
 }

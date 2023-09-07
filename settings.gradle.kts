@@ -17,7 +17,6 @@ pluginManagement {
     }
 }
 
-
 rootProject.name = "peepoLab"
 include("app")
 include("utilities")

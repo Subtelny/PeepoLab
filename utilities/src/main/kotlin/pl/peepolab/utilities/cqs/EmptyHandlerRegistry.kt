@@ -6,7 +6,7 @@ import pl.peepolab.utilities.cqs.query.Query
 import pl.peepolab.utilities.cqs.query.QueryHandler
 
 object EmptyHandlerRegistry : HandlerRegistry {
-    override fun <COMMAND : Command> findCommandHandler(commandType: Class<COMMAND>): CommandHandler<COMMAND>? =
+    override fun <RESULT, COMMAND : Command<RESULT>> findCommandHandler(commandType: Class<COMMAND>): CommandHandler<COMMAND, RESULT>? =
         null
 
     override fun <RESULT, QUERY : Query<RESULT>> findQueryHandler(queryType: Class<QUERY>): QueryHandler<QUERY, RESULT>? =
