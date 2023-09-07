@@ -9,13 +9,16 @@ import pl.peepolab.integration.slack.application.SlackUserInteraction
 import pl.peepolab.integration.slack.application.SlackUserService
 import pl.peepolab.integration.slack.model.SlackUser
 import pl.peepolab.integration.slack.model.SlackUserId
+import pl.peepolab.module.model.user.model.UserId
+import pl.peepolab.utilities.datatype.Email
+import java.util.*
 
 abstract class SlashCommandSlackUserInteraction : SlackUserInteraction, SlackSlashCommandHandler {
 
     override fun apply(req: SlashCommandRequest, context: SlashCommandContext): Response {
         val rawSlackUserId = req.payload.userId
         val slackUserId = SlackUserId.of(rawSlackUserId)
-        val invoker = retrieveSlackUser(slackUserId)
+        val invoker = SlackUser(UserId(UUID.randomUUID()), slackUserId, Email("asd"), "asdas", "asdsad", "asda")//retrieveSlackUser(slackUserId)
         return apply(invoker, req, context)
     }
 
