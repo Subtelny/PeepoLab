@@ -32,8 +32,14 @@ internal class SlackUserDao(
                 .set(Tables.SLACK_USER.EMAIL, model.email)
                 .set(Tables.SLACK_USER.SLACK_ID, model.slackUserId)
                 .set(Tables.SLACK_USER.USER_ID, model.userId)
+                .set(Tables.SLACK_USER.NAME, model.name)
+                .set(Tables.SLACK_USER.REAL_NAME, model.realName)
+                .set(Tables.SLACK_USER.AVATAR, model.avatar)
                 .onDuplicateKeyUpdate()
                 .set(Tables.SLACK_USER.EMAIL, model.email)
+                .set(Tables.SLACK_USER.NAME, model.name)
+                .set(Tables.SLACK_USER.REAL_NAME, model.realName)
+                .set(Tables.SLACK_USER.AVATAR, model.avatar)
                 .execute()
         }
     }

@@ -2,19 +2,17 @@ package pl.peepolab.integration.slack.infrastructure.persistence
 
 import com.github.benmanes.caffeine.cache.Caffeine
 import jakarta.inject.Singleton
-import org.jooq.impl.DSL
 import pl.peepolab.integration.slack.application.CreateSlackUserData
 import pl.peepolab.integration.slack.infrastructure.persistence.dao.SlackUserDao
 import pl.peepolab.integration.slack.infrastructure.persistence.dao.toEntity
 import pl.peepolab.integration.slack.infrastructure.persistence.dao.toModel
-import pl.peepolab.integration.slack.model.SlackUserRepository
 import pl.peepolab.integration.slack.model.SlackUser
 import pl.peepolab.integration.slack.model.SlackUserId
+import pl.peepolab.integration.slack.model.SlackUserRepository
 import pl.peepolab.integration.slack.model.exception.SlackUserException
 import pl.peepolab.module.api.infrastructure.ConnectionProvider
-import pl.peepolab.module.model.user.model.UserId
+import pl.peepolab.module.model.user.model.CoreUserId
 import java.util.concurrent.TimeUnit
-import javax.sql.DataSource
 
 @Singleton
 class CachedSlackUserRepository(
@@ -26,7 +24,7 @@ class CachedSlackUserRepository(
         .expireAfterAccess(1, TimeUnit.HOURS)
         .build<SlackUserId, SlackUser>()
 
-    override fun createSlackUser(userId: UserId, data: CreateSlackUserData): SlackUser {
+    override fun createSlackUser(userId: CoreUserId, data: CreateSlackUserData): SlackUser {
         val entity = data.toEntity(userId)
         slackUserDao.save(entity)
         return getSlackUser(data.slackUserId)

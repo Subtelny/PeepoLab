@@ -1,7 +1,6 @@
 package pl.peepolab.integration.slack.application
 
 import com.slack.api.bolt.socket_mode.SocketModeApp
-import com.slack.api.methods.MethodsClient
 import pl.peepolab.integration.slack.model.SlackUser
 import pl.peepolab.integration.slack.model.SlackUserId
 import pl.peepolab.utilities.datatype.Email
@@ -19,14 +18,15 @@ interface SlackUserInteraction {
     }
 
     private fun getCreateSlackUserData(slackUserId: SlackUserId): CreateSlackUserData {
-        val response = socketModeApp.client.slack.methods().usersInfo { it.user(slackUserId.value) }
+        val methods = socketModeApp.client.slack.methods(socketModeApp.app.config().singleTeamBotToken)
+        val response = methods.usersInfo { it.user(slackUserId.value) }
         val user = response.user
         return CreateSlackUserData(
             slackUserId = slackUserId,
             email = Email(user.profile.email),
             name = user.name,
             realName = user.realName,
-            avatar = user.profile.imageOriginal
+            avatar = user.profile.image32,
         )
     }
 

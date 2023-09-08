@@ -13,9 +13,9 @@ abstract class AppHomeOpenedSlackUserInteraction : AppHomeOpenedHandler(), Slack
     override fun handle(payload: AppHomeOpenedPayload) {
         val rawUserId = payload.event.user
         val slackUserId = SlackUserId.of(rawUserId)
-//        retrieveSlackUser(slackUserId).run {
-//            handle(this, payload)
-//        }
+        retrieveSlackUser(slackUserId).run {
+            handle(this, payload)
+        }
     }
 
     abstract fun handle(invoker: SlackUser, payload: AppHomeOpenedPayload)

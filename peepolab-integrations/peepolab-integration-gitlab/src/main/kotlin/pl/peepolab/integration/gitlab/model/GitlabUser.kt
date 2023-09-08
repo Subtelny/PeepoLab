@@ -1,12 +1,13 @@
 package pl.peepolab.integration.gitlab.model
 
-import pl.peepolab.module.model.user.model.UserId
+import pl.peepolab.module.model.user.model.CoreUserId
+import pl.peepolab.utilities.datatype.Email
 
 class GitlabUser(
-    val userId: UserId,
-    val gitlabUserId: GitlabUserId,
-    val information: GitlabUserInformation,
-    var token: GitlabToken,
+    val id: GitlabUserId,
+    val userId: CoreUserId,
+    val email: Email,
+    val username: String,
 ) {
 
     override fun equals(other: Any?): Boolean {
@@ -15,15 +16,15 @@ class GitlabUser(
 
         other as GitlabUser
 
+        if (id != other.id) return false
         if (userId != other.userId) return false
-        if (gitlabUserId != other.gitlabUserId) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = userId.hashCode()
-        result = 31 * result + gitlabUserId.hashCode()
+        var result = id.hashCode()
+        result = 31 * result + userId.hashCode()
         return result
     }
 }

@@ -8,7 +8,7 @@ import pl.peepolab.module.api.ui.CoreService
 import pl.peepolab.module.api.ui.query.GetUserExternalIntegrationStatusQuery
 import pl.peepolab.module.api.ui.query.GetUserExternalIntegrationStrategyQuery
 import pl.peepolab.module.model.integration.ExternalIntegrationType
-import pl.peepolab.module.model.user.model.UserId
+import pl.peepolab.module.model.user.model.CoreUserId
 
 @Singleton
 class ExternalUserIntegrationsService(
@@ -36,7 +36,7 @@ class ExternalUserIntegrationsService(
     }
 
     private fun getUserIntegrationStrategy(
-        userId: UserId,
+        userId: CoreUserId,
         integrationType: ExternalIntegrationType,
     ): ExternalIntegrationAuthStrategyDTO {
         val query = GetUserExternalIntegrationStrategyQuery(userId, integrationType)

@@ -1,11 +1,11 @@
 package pl.peepolab.integration.slack.model
 
 import pl.peepolab.integration.slack.application.CreateSlackUserData
-import pl.peepolab.module.model.user.model.UserId
+import pl.peepolab.module.model.user.model.CoreUserId
 
 interface SlackUserRepository {
 
-    fun createSlackUser(userId: UserId, data: CreateSlackUserData): SlackUser
+    fun createSlackUser(userId: CoreUserId, data: CreateSlackUserData): SlackUser
 
     fun findSlackUser(slackUserId: SlackUserId): SlackUser?
 

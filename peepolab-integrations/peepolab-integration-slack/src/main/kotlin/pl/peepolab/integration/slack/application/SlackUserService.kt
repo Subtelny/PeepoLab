@@ -21,5 +21,5 @@ data class CreateSlackUserData(
     val email: Email,
     val name: String,
     val realName: String,
-    val avatar: String,
+    val avatar: String?,
 )

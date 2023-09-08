@@ -6,7 +6,7 @@ import pl.peepolab.integration.slack.model.SlackUserId
 import pl.peepolab.integration.slack.model.SlackUserRepository
 import pl.peepolab.module.api.infrastructure.TransactionProvider
 import pl.peepolab.module.api.ui.CoreService
-import pl.peepolab.module.api.ui.command.CreateUserCommand
+import pl.peepolab.module.api.ui.command.CreateCoreUserCommand
 
 @Singleton
 class SlackUserServiceImpl(
@@ -17,7 +17,7 @@ class SlackUserServiceImpl(
 
     override fun createSlackUser(data: CreateSlackUserData): SlackUser {
         return transactionProvider.transactionalResult {
-            val userId = coreService.command(CreateUserCommand(data.email))
+            val userId = coreService.command(CreateCoreUserCommand(data.email))
             val slackUser = slackUserRepository.createSlackUser(userId, data)
             slackUser
         }

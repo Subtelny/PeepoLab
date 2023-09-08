@@ -2,7 +2,7 @@ package pl.peepolab.integration.gitlab.infrastructure
 
 import io.micronaut.context.event.ApplicationEventListener
 import jakarta.inject.Singleton
-import pl.peepolab.integration.gitlab.integration.GitlabExternalIntegration
+import pl.peepolab.integration.gitlab.infrastructure.integration.GitlabExternalIntegration
 import pl.peepolab.module.api.event.CoreInitializedEvent
 import pl.peepolab.module.api.integration.CoreContextExternalIntegrations
 

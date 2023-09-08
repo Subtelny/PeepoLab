@@ -4,28 +4,29 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
 //-- MICRONAUT CORE
+    ksp("io.micronaut.data:micronaut-data-processor")
     ksp("io.micronaut.serde:micronaut-serde-processor")
-    implementation("io.micronaut:micronaut-inject")
-    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+    implementation("io.micronaut:micronaut-inject")
+    testImplementation("io.micronaut:micronaut-http-client")
 
-//-- DATABASE REALATED
-    implementation("io.micronaut.sql:micronaut-jooq")
+//-- DATABASE RELATED
     implementation("io.micronaut.liquibase:micronaut-liquibase")
-    runtimeOnly("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.sql:micronaut-jooq")
     implementation("org.jooq:jooq")
     implementation("org.jooq:jooq-codegen")
     runtimeOnly("org.postgresql:postgresql")
 
-//-- LOGS
+//-- LOGS & JSON
     runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 // -- OTHER
     implementation("org.gitlab4j:gitlab4j-api:6.0.0-rc.2")
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
-    testImplementation("io.micronaut:micronaut-http-client")
-    testImplementation("org.assertj:assertj-core:3.11.1")
     implementation("com.google.guava:guava:32.1.2-jre")
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
     implementation("org.testcontainers:testcontainers:1.19.0")
+    testImplementation("org.assertj:assertj-core:3.11.1")
 }

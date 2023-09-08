@@ -7,8 +7,10 @@ plugins {
 
 dependencies {
     implementation(project(":utilities"))
+    implementation(project(":jooq-generated-tables"))
     implementation(project(":peepolab-modules:peepolab-module-api"))
     implementation(project(":peepolab-modules:peepolab-module-model"))
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
     implementation("io.micronaut:micronaut-http-client")
     implementation("org.jooq:jooq")
 }

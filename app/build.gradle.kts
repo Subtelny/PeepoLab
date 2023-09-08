@@ -19,8 +19,6 @@ dependencies {
     implementation(project(":peepolab-modules:peepolab-module-api"))
     implementation(project(":peepolab-integrations:peepolab-integration-slack"))
     implementation(project(":peepolab-integrations:peepolab-integration-gitlab"))
-    jooqGenerator("org.jooq:jooq-meta-extensions-liquibase")
-    implementation("com.slack.api:bolt:1.30.0")
 }
 
 application {
@@ -54,7 +52,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("com.example.*")
+        annotations("pl.peepolab.*")
     }
     testResources {
         additionalModules.add("jdbc-postgresql")

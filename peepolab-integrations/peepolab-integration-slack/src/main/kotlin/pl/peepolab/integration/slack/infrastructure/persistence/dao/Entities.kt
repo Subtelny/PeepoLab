@@ -8,5 +8,5 @@ data class SlackUserEntity(
     val email: String,
     val name: String,
     val realName: String,
-    val avatar: String,
+    val avatar: String?,
 )
