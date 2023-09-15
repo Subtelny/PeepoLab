@@ -1,6 +1,7 @@
 package pl.peepolab.integration.slack.application
 
 import com.slack.api.bolt.socket_mode.SocketModeApp
+import pl.peepolab.integration.slack.model.CreateSlackUserData
 import pl.peepolab.integration.slack.model.SlackUser
 import pl.peepolab.integration.slack.model.SlackUserId
 import pl.peepolab.utilities.datatype.Email

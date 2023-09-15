@@ -1,0 +1,26 @@
+micronaut:
+  server:
+    port: 3000
+  application:
+    name: peepoLab
+datasources:
+  default:
+    jdbc-url: jdbc:postgresql://localhost:5432/peepolab
+    username: postgres
+    password: postgres
+jooq:
+  datasources:
+    default:
+      sql-dialect: POSTGRES
+liquibase:
+  datasources:
+    default:
+      change-log: classpath:db/liquibase-changelog.xml
+
+gitlab:
+  configuration:
+    clientId: c1459865d3573efeb374c5156bcc236bec6195171412bcf585623f5bb0c7a836
+    clientSecret: 52f4c73e92e90366c78f7b54b6a06122a2fd94917e09b88d3bdb5021b409b9a9
+    scopes: api+read_user+openid+profile+email
+    gitlabUrl: http://127.0.0.1
+    redirectUrl: http://localhost:3000/gitlab/code/confirm

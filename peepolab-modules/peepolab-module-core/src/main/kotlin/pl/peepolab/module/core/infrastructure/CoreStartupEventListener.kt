@@ -4,6 +4,7 @@ import io.micronaut.context.ApplicationContext
 import io.micronaut.context.event.ApplicationEventPublisher
 import io.micronaut.context.event.StartupEvent
 import io.micronaut.runtime.event.annotation.EventListener
+import io.micronaut.runtime.server.event.ServerStartupEvent
 import jakarta.inject.Singleton
 import pl.peepolab.module.api.event.CoreInitializedEvent
 import pl.peepolab.module.core.application.UserExternalIntegrationsService
@@ -18,6 +19,11 @@ internal class CoreStartupEventListener(
     private val userExternalIntegrationsService: UserExternalIntegrationsService,
     private val applicationEventPublisher: ApplicationEventPublisher<CoreInitializedEvent>,
 ) {
+
+    @EventListener
+    fun onStartup(event: ServerStartupEvent) {
+        event.source.contextURI
+    }
 
     @EventListener
     fun onStartup(event: StartupEvent) {

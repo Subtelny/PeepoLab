@@ -1,9 +1,9 @@
 package pl.peepolab.integration.slack.application
 
-import pl.peepolab.integration.slack.model.exception.SlackUserException
+import pl.peepolab.integration.slack.model.CreateSlackUserData
 import pl.peepolab.integration.slack.model.SlackUser
 import pl.peepolab.integration.slack.model.SlackUserId
-import pl.peepolab.utilities.datatype.Email
+import pl.peepolab.integration.slack.model.exception.SlackUserException
 
 interface SlackUserService {
 
@@ -12,14 +12,7 @@ interface SlackUserService {
     fun findSlackUser(slackUserId: SlackUserId): SlackUser?
 
     fun getSlackUser(slackUserId: SlackUserId): SlackUser = findSlackUser(slackUserId)
-        ?: throw SlackUserException.NotFound(slackUserId.value)
+        ?: throw SlackUserException.NotFound(slackUserId)
 
 }
 
-data class CreateSlackUserData(
-    val slackUserId: SlackUserId,
-    val email: Email,
-    val name: String,
-    val realName: String,
-    val avatar: String?,
-)

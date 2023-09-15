@@ -5,7 +5,7 @@ import pl.peepolab.utilities.datatype.Email
 
 class GitlabUser(
     val id: GitlabUserId,
-    val userId: CoreUserId,
+    val coreUserId: CoreUserId,
     val email: Email,
     val username: String,
 ) {
@@ -17,14 +17,14 @@ class GitlabUser(
         other as GitlabUser
 
         if (id != other.id) return false
-        if (userId != other.userId) return false
+        if (coreUserId != other.coreUserId) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + userId.hashCode()
+        result = 31 * result + coreUserId.hashCode()
         return result
     }
 }

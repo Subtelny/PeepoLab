@@ -1,4 +1,4 @@
-package pl.peepolab.integration.gitlab.webhook
+package pl.peepolab.integration.gitlab.ui.webhook
 
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse

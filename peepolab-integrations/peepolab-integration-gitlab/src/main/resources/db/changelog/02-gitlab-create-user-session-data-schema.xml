@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="02-gitlab-create-user-session-data-schema" author="sjanda">
+        <createTable tableName="gitlab_user_session_data">
+            <column name="gitlab_user_id" type="bigint">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="access_token" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="refresh_token" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="02-gitlab-create-user-session-data-foreignkey" author="sjanda">
+        <addForeignKeyConstraint constraintName="fk_id_gitlab_user_id"
+                                 baseTableName="gitlab_user_session_data"
+                                 baseColumnNames="gitlab_user_id"
+                                 referencedTableName="gitlab_user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

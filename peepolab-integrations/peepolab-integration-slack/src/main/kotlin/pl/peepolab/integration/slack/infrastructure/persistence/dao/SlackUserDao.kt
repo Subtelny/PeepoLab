@@ -12,11 +12,11 @@ internal class SlackUserDao(
     override fun find(id: SlackUserId): SlackUserEntity? =
         with(connectionProvider.getConnection()) {
             selectFrom(Tables.SLACK_USER)
-                .where(Tables.SLACK_USER.SLACK_ID.eq(id.value))
+                .where(Tables.SLACK_USER.ID.eq(id.value))
                 .fetchOne {
                     SlackUserEntity(
-                        it.userId,
-                        it.slackId,
+                        it.coreUserId,
+                        it.id,
                         it.email,
                         it.name,
                         it.realName,
@@ -30,8 +30,8 @@ internal class SlackUserDao(
         with(connectionProvider.getConnection()) {
             insertInto(Tables.SLACK_USER)
                 .set(Tables.SLACK_USER.EMAIL, model.email)
-                .set(Tables.SLACK_USER.SLACK_ID, model.slackUserId)
-                .set(Tables.SLACK_USER.USER_ID, model.userId)
+                .set(Tables.SLACK_USER.ID, model.slackUserId)
+                .set(Tables.SLACK_USER.CORE_USER_ID, model.coreUserId)
                 .set(Tables.SLACK_USER.NAME, model.name)
                 .set(Tables.SLACK_USER.REAL_NAME, model.realName)
                 .set(Tables.SLACK_USER.AVATAR, model.avatar)
@@ -47,7 +47,7 @@ internal class SlackUserDao(
     override fun delete(model: SlackUserEntity) {
         with(connectionProvider.getConnection()) {
             deleteFrom(Tables.SLACK_USER)
-                .where(Tables.SLACK_USER.SLACK_ID.eq(model.slackUserId))
+                .where(Tables.SLACK_USER.ID.eq(model.slackUserId))
                 .execute()
         }
     }

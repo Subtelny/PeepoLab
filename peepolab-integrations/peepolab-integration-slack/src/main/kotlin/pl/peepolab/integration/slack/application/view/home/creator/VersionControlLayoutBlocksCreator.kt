@@ -6,7 +6,7 @@ import pl.peepolab.integration.slack.model.SlackUserId
 
 class VersionControlLayoutBlocksCreator : LayoutBlocksCreator {
     override fun create(slackUserId: SlackUserId): List<LayoutBlock> {
-        TODO("Not yet implemented")
+        return emptyList()
     }
 
 }

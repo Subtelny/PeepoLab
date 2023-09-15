@@ -1,6 +1,5 @@
 package pl.peepolab.integration.slack.model
 
-import pl.peepolab.integration.slack.application.CreateSlackUserData
 import pl.peepolab.module.model.user.model.CoreUserId
 
 interface SlackUserRepository {

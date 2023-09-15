@@ -10,6 +10,9 @@ dependencies {
     implementation(project(":peepolab-modules:peepolab-module-api"))
     implementation(project(":peepolab-modules:peepolab-module-model"))
     implementation(project(":utilities"))
+    implementation(project(":jooq-generated-tables"))
+    implementation("org.jooq:jooq")
     implementation("org.gitlab4j:gitlab4j-api:6.0.0-rc.2")
     implementation("io.micronaut:micronaut-http-client")
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 }

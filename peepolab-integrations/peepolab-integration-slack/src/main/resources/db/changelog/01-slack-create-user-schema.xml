@@ -7,10 +7,10 @@
 
     <changeSet id="01-slack-create-user-schema" author="sjanda">
         <createTable tableName="slack_user">
-            <column name="slack_id" type="varchar(25)">
+            <column name="id" type="varchar(25)">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
-            <column name="user_id" type="uuid">
+            <column name="core_user_id" type="uuid">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="email" type="varchar(255)">
@@ -25,11 +25,11 @@
         </createTable>
     </changeSet>
     <changeSet id="01-slack-create-user-foreignkey" author="sjanda">
-        <addForeignKeyConstraint constraintName="fk_slack_user_user_id"
+        <addForeignKeyConstraint constraintName="fk_id_core_user_id"
                                  baseTableName="slack_user"
-                                 baseColumnNames="user_id"
+                                 baseColumnNames="core_user_id"
                                  referencedTableName="core_user"
-                                 referencedColumnNames="ID"/>
+                                 referencedColumnNames="id"/>
     </changeSet>
 
 

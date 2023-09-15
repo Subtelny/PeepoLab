@@ -8,7 +8,7 @@ import pl.peepolab.integration.slack.application.view.SlackViewFileLoader
 import pl.peepolab.integration.slack.application.view.builder.SlackLayoutBlocksBuilder
 import pl.peepolab.integration.slack.application.view.builder.SlackViewParameter
 import pl.peepolab.integration.slack.model.SlackUserId
-import pl.peepolab.module.api.integration.dto.ExternalIntegrationAuthStrategyDTO
+import pl.peepolab.module.api.integration.strategy.ExternalIntegrationAuthStrategy
 import pl.peepolab.module.model.integration.ExternalIntegrationType
 
 /***
@@ -24,7 +24,7 @@ class IntegrationsLayoutBlocksCreator(
 ) : LayoutBlocksCreator {
 
     override fun create(slackUserId: SlackUserId): List<LayoutBlock> {
-        val info = externalUserIntegrationsService.getUserIntegrationInformation(slackUserId, GITLAB_INTEGRATION_TYPE)
+        val info = externalUserIntegrationsService.getExternalUserIntegrationInformation(slackUserId, GITLAB_INTEGRATION_TYPE)
         return prepareIntegrationStatus(info)
     }
 
@@ -39,10 +39,10 @@ class IntegrationsLayoutBlocksCreator(
     }
 
     private fun unauthenticated(
-        authStrategy: ExternalIntegrationAuthStrategyDTO,
+        authStrategy: ExternalIntegrationAuthStrategy,
         integrated: Boolean = true,
     ): List<LayoutBlock> {
-        if (authStrategy is ExternalIntegrationAuthStrategyDTO.OIDC) {
+        if (authStrategy is ExternalIntegrationAuthStrategy.OIDC) {
             val view = if (integrated) GITLAB_UNAUTHENTICATED_FILE_NAME else GITLAB_INTEGRATION_FILE_NAME
             val blocksJson = SlackViewFileLoader.loadViewJson(view)
             val parameters = listOf(
@@ -55,8 +55,7 @@ class IntegrationsLayoutBlocksCreator(
         return emptyList()
     }
 
-    private fun ExternalIntegrationAuthStrategyDTO.OIDC.buildUrl(): String {
-        val scopes = scope.joinToString(separator = "+")
+    private fun ExternalIntegrationAuthStrategy.OIDC.buildUrl(): String {
         return buildString {
             append(authorizationEndpoint)
                 .append("?").append("client_id=$clientId")

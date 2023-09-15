@@ -10,4 +10,6 @@ interface CoreUserRepository {
 
     fun getCoreUser(coreUserId: CoreUserId): CoreUser
 
+    fun getCoreUser(email: Email): CoreUser
+
 }

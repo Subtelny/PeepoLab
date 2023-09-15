@@ -30,7 +30,7 @@
     "type": "section",
     "text": {
       "type": "mrkdwn",
-      "text": "*Niestety nie mogliśmy odtworzyć Twojej sesji. Spróbuj zautoryzować się ponownie.*"
+      "text": "Niestety nie mogliśmy odtworzyć Twojej sesji. Spróbuj zautoryzować się ponownie."
     },
     "accessory": {
       "type": "image",

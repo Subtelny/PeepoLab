@@ -4,7 +4,7 @@ import pl.peepolab.module.model.user.model.CoreUserId
 import pl.peepolab.utilities.datatype.Email
 
 data class SlackUser(
-    val userId: CoreUserId,
+    val coreUserId: CoreUserId,
     val slackUserId: SlackUserId,
     val email: Email,
     val name: String,

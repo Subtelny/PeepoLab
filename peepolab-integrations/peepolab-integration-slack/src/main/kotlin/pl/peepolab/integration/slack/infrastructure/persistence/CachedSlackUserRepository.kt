@@ -2,7 +2,7 @@ package pl.peepolab.integration.slack.infrastructure.persistence
 
 import com.github.benmanes.caffeine.cache.Caffeine
 import jakarta.inject.Singleton
-import pl.peepolab.integration.slack.application.CreateSlackUserData
+import pl.peepolab.integration.slack.model.CreateSlackUserData
 import pl.peepolab.integration.slack.infrastructure.persistence.dao.SlackUserDao
 import pl.peepolab.integration.slack.infrastructure.persistence.dao.toEntity
 import pl.peepolab.integration.slack.infrastructure.persistence.dao.toModel
@@ -32,12 +32,12 @@ class CachedSlackUserRepository(
 
     override fun findSlackUser(slackUserId: SlackUserId): SlackUser? {
         return cache.get(slackUserId) {
-            slackUserDao.find(slackUserId)?.toModel()
+            slackUserDao.find(it)?.toModel()
         }
     }
 
     override fun getSlackUser(slackUserId: SlackUserId): SlackUser {
-        return findSlackUser(slackUserId) ?: throw SlackUserException.NotFound(slackUserId.value)
+        return findSlackUser(slackUserId) ?: throw SlackUserException.NotFound(slackUserId)
     }
 
 }

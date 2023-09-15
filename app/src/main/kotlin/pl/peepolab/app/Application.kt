@@ -21,15 +21,16 @@ fun main(args: Array<String>) {
 //    )
     /*
 
-code : b3751eb3c6283df1ae61e76bfc386af44d5257d8670ccc525ac2c9130b687edf
-    app id: ead283d0ac45a2f22b4b49ff7dae23c840ce7ba21f8c1f70f9f5fdacbe104ca5
-    secret: f1a0c13a94349ed0616a6692824ee411e3880669089c1e87cf61197828703bf5
+    code :
+    app id: c1459865d3573efeb374c5156bcc236bec6195171412bcf585623f5bb0c7a836
+    secret: 52f4c73e92e90366c78f7b54b6a06122a2fd94917e09b88d3bdb5021b409b9a9
+    rest: https://e563-79-191-179-41.ngrok-free.app/gitlab/success
+    scopes: api+read_user+openid+profile+email
      */
 
     /*
-
-    access: 0e5d8853a51692bb0c555cd631f7e0fc6a1be73a46a84068d8884b5e8c853c18
-    refresh: 113a35f1733d0092d1c1d9b495f41ee1a35de123ce184bd68fb108a7170188f0
+    access: 5774202ead22d99aecd3f699622d225f4bfbfe4471529c07546b8775be6d55a7
+    refresh: caeaf72dc23fb05c4bd39bae1b5c7600cf6055ad75c3ae32c10b730e2c3f07ad
      */
 }
 
